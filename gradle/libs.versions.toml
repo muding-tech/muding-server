@@ -1,22 +1,33 @@
-# Version catalog is a central place for you to declare and version dependencies
-# https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
-# https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
-
 [versions]
 kotlin = "2.1.20"
 kotlinxDatetime = "0.6.1"
 kotlinxSerializationJSON = "1.7.3"
 kotlinxCoroutines = "1.9.0"
+junit-pioneer = "2.3.0"
+archunit = "1.4.1"
 
 [libraries]
-kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinxDatetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinxSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJSON" }
 kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+junit-pioneer = { module = "org.junit-pioneer:junit-pioneer", version.ref = "junit-pioneer" }
+archunit = { module = "com.tngtech.archunit:archunit-junit5", version.ref = "archunit" }
+h2 = { module = "com.h2database:h2" }
+mysql = { module = "com.mysql:mysql-connector-j" }
+spring-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-security = { module = "org.springframework.security:spring-security-core" }
+spring-docker-compose = { module = "org.springframework.boot:spring-boot-docker-compose" }
+spring-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
+kotlin-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }
+junit-platform = { module = "org.junit.platform:junit-platform-launcher" }
 
-# Libraries can be bundled together for easier import
 [bundles]
-kotlinxEcosystem = ["kotlinxDatetime", "kotlinxSerialization", "kotlinxCoroutines"]
+spring = ["spring-data-jpa", "spring-web", "spring-validation", "spring-security", "kotlin-reflect"]
+test = ["spring-test", "junit-pioneer", "archunit", "kotlin-junit5"]
+database = ["h2", "mysql"]
 
 [plugins]
 kotlinPluginSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
