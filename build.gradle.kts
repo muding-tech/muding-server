@@ -1,26 +1,70 @@
 plugins {
-    java
-    jacoco
-    libs.plugins.kotlinPluginSerialization
-    id("org.jlleitschuh.gradle.ktlint") version "13.0.0"
-    id("io.gitlab.arturbosch.detekt") version "1.23.8"
-    id("com.linecorp.build-recipe-plugin") version "1.1.1"
+    alias(libs.plugins.java)
+    alias(libs.plugins.jacoco)
 
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.spring)
+    alias(libs.plugins.kotlin.plugin.jpa)
+
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.detekt)
 }
 
-buildscript {
-    repositories {
-        mavenLocal()
-        google()
-        gradlePluginPortal()
-    }
+group = "com"
+version = "0.0.1-SNAPSHOT"
 
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.24")
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
     }
 }
 
 repositories {
     mavenCentral()
-    google()
+}
+
+dependencies {
+    implementation(libs.bundles.spring)
+
+    compileOnly(libs.lombok)
+    developmentOnly(libs.spring.docker.compose)
+    runtimeOnly(libs.bundles.database)
+
+    testRuntimeOnly(libs.junit.platform)
+    testImplementation(libs.bundles.test)
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    config.setFrom(files("$projectDir/config/detekt/detekt.yaml"))
+}
+
+allOpen {
+    annotation("jakarta.persistence.Entity")
+}
+
+noArg {
+    annotation("jakarta.persistence.Entity")
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+    finalizedBy("jacocoTestReport")
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
 }

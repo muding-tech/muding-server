@@ -1,22 +1,13 @@
 rootProject.name = "muding-server"
 
-dependencyResolutionManagement {
+pluginManagement {
     buildscript {
         repositories {
             gradlePluginPortal()
         }
     }
 
-    @Suppress("UnstableApiUsage")
     repositories {
         gradlePluginPortal()
-    }
-}
-
-dependencyResolutionManagement {
-    @Suppress("UnstableApiUsage")
-    repositories {
-        mavenCentral()
-        google()
     }
 }
