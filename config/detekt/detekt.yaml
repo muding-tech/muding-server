@@ -1,0 +1,19 @@
+build:
+  maxIssues: 0
+
+performance:
+  SpreadOperator:
+    active: false
+
+empty-blocks:
+  active: true
+  EmptyClassBlock:
+    active: false
+  EmptyFunctionBlock:
+    active: false
+  EmptyKtFile:
+    active: false
+
+config:
+  validation: true
+  warningsAsErrors: true
