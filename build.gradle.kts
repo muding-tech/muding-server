@@ -22,12 +22,6 @@ java {
     }
 }
 
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
-    }
-}
-
 repositories {
     mavenCentral()
 }
@@ -68,4 +62,3 @@ tasks.jacocoTestReport {
         html.required.set(true)
     }
 }
-
