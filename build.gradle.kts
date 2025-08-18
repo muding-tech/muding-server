@@ -13,7 +13,7 @@ plugins {
     alias(libs.plugins.detekt)
 }
 
-group = "com"
+group = "com.muding"
 version = "0.0.1-SNAPSHOT"
 
 java {
